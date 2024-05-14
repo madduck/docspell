@@ -18,6 +18,7 @@ import cats.effect._
 import cats.syntax.all._
 import fs2.io.file.{Files, Path}
 import fs2.{Chunk, Pipe, Stream}
+import org.apache.commons.compress.archivers.zip.{ZipFile => AZipFile}
 
 import docspell.common.Glob
 import docspell.logging.Logger
@@ -71,9 +72,14 @@ object ZipImpl {
     (resource: ZipFile) => resource.close()
 
   private def unzipZipFile(zip: Path, target: Path, glob: Glob): Chunk[Path] =
-    Using.resource(new ZipFile(zip.toNioPath.toFile, StandardCharsets.UTF_8)) { zf =>
+    Using.resource(
+      new AZipFile.Builder()
+        .setFile(zip.toNioPath.toFile)
+        .setCharset(StandardCharsets.UTF_8)
+        .get()
+    ) { zf =>
       Chunk.iterator(
-        zf.entries()
+        zf.getEntries()
           .asScala
           .filter(ze => !ze.getName.endsWith("/"))
           .filter(ze => glob.matchFilenameOrPath(ze.getName))

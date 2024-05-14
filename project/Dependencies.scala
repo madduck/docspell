@@ -342,4 +342,8 @@ object Dependencies {
     "com.ibm.icu" % "icu4j" % Icu4jVersion
   )
 
+  val commonsCompress = Seq(
+    "org.apache.commons" % "commons-compress" % "1.26.1"
+  )
+
 }

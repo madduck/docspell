@@ -350,7 +350,8 @@ val common = project
         Dependencies.circe ++
         Dependencies.circeGenericExtra ++
         Dependencies.calevCore ++
-        Dependencies.calevCirce
+        Dependencies.calevCirce ++
+        Dependencies.commonsCompress
   )
   .dependsOn(loggingApi)
 
