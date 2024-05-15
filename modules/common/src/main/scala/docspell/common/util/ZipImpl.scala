@@ -18,10 +18,11 @@ import cats.effect._
 import cats.syntax.all._
 import fs2.io.file.{Files, Path}
 import fs2.{Chunk, Pipe, Stream}
-import org.apache.commons.compress.archivers.zip.{ZipFile => AZipFile}
 
 import docspell.common.Glob
 import docspell.logging.Logger
+
+import org.apache.commons.compress.archivers.zip.{ZipFile => AZipFile}
 
 final private class ZipImpl[F[_]: Async: Files](
     log: Option[Logger[F]],

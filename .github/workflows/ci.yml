@@ -3,6 +3,7 @@ on:
   pull_request:
     branches:
       - master
+      - integration
 jobs:
   ci-matrix:
     runs-on: ubuntu-latest
